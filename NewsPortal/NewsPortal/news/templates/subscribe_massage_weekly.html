@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Еженедельная рассылка!</title>
+</head>
+<body>
+    {% for p in post %}
+        {% if p in past_week_posts %}
+        <h1> Привет {{ sub.subUser.username }}! Вот подборка материалов в вашей любимой категории {{ sub.subCategory }} за неделю!</h1>
+        <p> {{ p.postThrough.dateCreation }} <a href="http://127.0.0.1:8000{% url 'news_detail' p.postThrough.id %}"class="btn btn-outline-success">{{ p.postThrough.title }}</a></p>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>

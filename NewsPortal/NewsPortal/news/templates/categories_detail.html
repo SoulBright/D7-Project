@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ categories_detail }} {% endblock title %}
+
+
+{% block content %}
+        <h1> Категория: {{ category_self }} </h1>
+<hr>
+{% if is_subscribers %}
+    <b> Если не хотите получать уведомление о новых статьях, вы можете</b>
+    <a class="btn" href="{% url 'unsubscribe' %}"><button type="submit" value="unfollow" name="pk" class="btn btn-light btn-outline-danger"> Отписаться</button></a>
+    {% else %}
+    <b>Если хотите получать уведомление о новых статьях, вы можете</b>
+    <a class="btn" href="{% url 'subscribe' %}"><button type="submit" value="follow" name="pk" class="btn btn-light btn-outline-primary"> Подписаться</button></a>
+    {% endif %}
+    {% if categories_detail %}
+            {% for news in categories_detail %}
+                <h3> <a href="{% url 'news_detail' news.id %}">{{ news.postThrough }}</a> </h3>
+            {% endfor %}
+    {% endif %}
+{% endblock content %}

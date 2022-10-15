@@ -1,0 +1,10 @@
+{% extends "main.html" %}
+
+{% block content %}
+<h2> Здравствуйте {{request.user.username}} </h2>
+
+{% if is_not_author %}
+<button> <a href="sign/upgrade/"> Хочу Premium!</a> </button>
+{% endif %}
+<button> <a href="sign/logout/">Выйти</a> </button>
+{% endblock %}

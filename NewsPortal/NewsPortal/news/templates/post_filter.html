@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} Поиск {% endblock title %}
+
+
+{% block content %}
+<h1> Поиск статьи: </h1>
+<hr>
+<form method="get">
+    {{ filter.form.as_p }}
+    <input type="submit"/>
+    <hr>
+</form>
+{% for obj in filter.qs %}
+{{ obj.title }} -- {{ obj.author }}  -- {{ obj.dateCreation|date:'d M Y' }} <br/>
+{% endfor %}
+
+{% endblock content %}

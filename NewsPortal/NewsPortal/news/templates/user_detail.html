@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} User: {{ user_detail.username }} {% endblock title %}
+
+
+{% block content %}
+<h1>  {{ user_detail }}  </h1>
+<hr>
+<h1> Информация о пользователе:</h1>
+
+<h3>username: {{ user_detail.username }}</h3>
+<h3>first name: {{ user_detail.first_name }}</h3>
+<h3>last name: {{ user_detail.last_name }}</h3>
+<h3>email: {{ user_detail.email }}</h3>
+
+<button> <a href="{% url 'user_update' user.id %}"><u> Редактировать </u></a> </button>
+{% endblock content %}

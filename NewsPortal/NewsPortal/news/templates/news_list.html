@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %} Все новости {% endblock title %}
+
+
+{% block content %}
+<h1> Все новости: </h1>
+<h3> В данный момент доступно {{Post_all|length}} статей.</h3>
+<hr>
+    {% if news_list %}
+        <table>
+            <tr>
+                <td> Заголовок </td>
+                <td> Автор </td>
+                <td> Дата публикации </td>
+                <td> Превью </td>
+            </tr>
+            {% for news in news_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'news_detail' news.id %}">{{ news.title|truncatechars:25|title }}</a>
+                </td>
+                <td> {{ news.author }} </td>
+                <td> {{ news.dateCreation|date:'M d Y' }} </td>
+                <td> {{ news.text|truncatechars:60 }} </td>
+                <td>
+                    <a href="{% url 'news_update' news.id %}"><u> Редактировать </u></a>
+                    <a href="{% url 'news_delete' news.id %}"><u> Удалить </u></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+<hr>
+<a href="{% url 'news_create' %}"> Добавить статью </a> <br>
+    {% else %}
+        <h2> Новостей нет! </h2>
+    {% endif %}
+
+{% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+        <a href="?page=1">В начало</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">В конец</a>
+    {% endif %}
+{% endif %}
+{% endblock content %}
